@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-int add(int x, int a) {
-	return x + a;
+void add(int* x, int a) {
+	*x += a;
 }
 
 int main() {
@@ -15,7 +15,10 @@ int main() {
 	cout << "加算する点数を入力してください。\n";
 	cin >> a;
 
+	add(&x1, a);
+	add(&x2, a);
+
 	cout << a << "点加算しましたので\n";
-	cout << "科目１は" << add(x1, a) << "点となりました。\n";
-	cout << "科目２は" << add(x2, a) << "点となりました。\n";
+	cout << "科目１は" << x1 << "点となりました。\n";
+	cout << "科目２は" << x2 << "点となりました。\n";
 }
