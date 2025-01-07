@@ -22,7 +22,8 @@ int main() {
 
 	//最大値を求める関数の使用と出力
 	cout << "最高点は" << max(test, num) << "です。\n";
-	
+
+	delete[] test;
 }
 
 int max(int a[], int n) {
