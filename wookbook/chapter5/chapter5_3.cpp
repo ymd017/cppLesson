@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
 	//要素型double,要素数が5の配列を全要素0.0で初期化する
-	double a[5] = { 0.0 };
+	double a[5] = { 0.0,0.0, 0.0, 0.0, 0.0,};
 
 	//要素を出力する
 	for (int i = 0; i < 5; i++)
