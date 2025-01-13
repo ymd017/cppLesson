@@ -2,68 +2,68 @@
 using namespace std;
 
 /*
-* ��蕶�F
-* ������s�Ɋ܂܂��ł��擪�Ɉʒu���镶��c�̂ւ̃|�C���^��Ԃ��֐�strchr_ptr���쐬����B
-* ����c��������s�Ɋ܂܂�Ȃ��ꍇ��NULL��ԋp���邱�ƁB
+* 問題文：
+* 文字列sに含まれる最も先頭に位置する文字cのへのポインタを返す関数strchr_ptrを作成せよ。
+* 文字cが文字列sに含まれない場合はNULLを返却すること。
 */
 
-char* strchr_ptr(char* s, char c);
+const char* strchr_ptr(const char* s, char c);
 
 /*============================================================
-* ���C���֐�
-* �����@�F�Ȃ�
-* �߂�l�F�Ȃ�
+* メイン関数
+* 引数　：なし
+* 戻り値：なし
 ============================================================*/
 int main() {
 
-	char c;		// �������镶��
-	char* ptr;	// �������������߂Č��ꂽ�v�f�̃|�C���^
+	char c;		// 検索する文字
+	const char* ptr;	// 検索文字が初めて現れた要素のポインタ
 
-	// ������s�̏�����
+	// 文字列sの初期化
 	char s[] = "hello";
 
-	// ������̏o��
-	cout << "������� " << s << " �ł��B\n";
+	// 文字列の出力
+	cout << "文字列は " << s << " です。\n";
 
-	// �������镶���̓���
-	cout << "�������镶������͂��Ă��������B\n";
+	// 検索する文字の入力
+	cout << "検索する文字を入力してください。\n";
 	cin >> c;
 
-	// ������s�Ɋ܂܂��ł��擪�Ɉʒu���镶��c�̓Y����Ԃ��֐��̎g�p
-	// ptr�Ɍ��ʂ��i�[����
+	// 文字列sに含まれる最も先頭に位置する文字cの添字を返す関数の使用
+	// ptrに結果を格納する
 	ptr = strchr_ptr(s, c);
 	
-	// ���ʂ̏o��
+	// 結果の出力
 	if (ptr != NULL) {
-		cout << "strchr_ptr(s, c)��]�����ĕԋp���ꂽ�|�C���^�̒l�� " << *ptr << " �ł��B";
+		cout << "strchr_ptr(s, c)を評価して返却されたポインタの値は " << *ptr << " です。";
 	}
 	else {
-		cout << "������ɕ���" << c << "�͊܂܂�܂���B\n";
+		cout << "文字列に文字" << c << "は含まれません。\n";
 	}
 }
 
 /*============================================================
-* ������s�Ɋ܂܂��ł��擪�Ɉʒu���镶��c�̂ւ̃|�C���^��Ԃ��֐�
-* �����@�Fchar* s		s1�̖����ɘA�����镶����
-* �����@�Fchar c		�������镶��
-* �߂�l�Fchar*			������s�Ɋ܂܂��ł��擪�Ɉʒu���镶��c�̂ւ̃|�C���^
+* 文字列sに含まれる最も先頭に位置する文字cのへのポインタを返す関数
+* 引数　：const char* s		s1の末尾に連結する文字列
+* 引数　：char c		検索する文字
+* 戻り値：const char*			文字列sに含まれる最も先頭に位置する文字cのへのポインタ
 ============================================================*/
-char* strchr_ptr(char* s, char c) {
+const char* strchr_ptr(const char* s, char c) {
 
-	char* ptr = s;
+	const char* ptr = s;
 
-	// while���Ő擪����NULL������1�O�܂ő�������
-	// ����c�����߂Č��ꂽ�Ƃ���̃|�C���^��ԋp����
+	// while文で先頭からNULL文字の1つ前まで走査する
+	// 文字cが初めて現れたところのポインタを返却する
 	while (*ptr != '\0') {
 
 		if (*ptr == c) {
 			return ptr;
 		}
 
-		// ������1���ɐi�߂�
+		// 文字を1つ次に進める
 		ptr++;
 	}
 
-	// ����c������Ȃ������ꍇ��NULL��ԋp����
+	// 文字cが現れなかった場合はNULLを返却する
 	return NULL;
 }
