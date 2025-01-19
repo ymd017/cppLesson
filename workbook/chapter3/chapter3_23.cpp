@@ -1,48 +1,48 @@
 /*
-* –â‘è•¶F
-* ‹L†•¶Žš*‚ð•À‚×‚ÄA‚‚³‚ªheight’i‚Å‰¡•‚ªwidth‚Ì•½sŽl•ÓŒ`‚ð•\Ž¦‚·‚éƒvƒƒOƒ‰ƒ€‚ðì¬‚¹‚æB
-* iã’i‚Æ‰º’i‚Í…•½‚ÅA‰º‚é‚½‚Ñ‚É1•¶Žš•ª‚¸‚Â¶‚É‚¸‚ê‚Ä‚¢‚­j
+* å•é¡Œæ–‡ï¼š
+* è¨˜å·æ–‡å­—*ã‚’ä¸¦ã¹ã¦ã€é«˜ã•ãŒheightæ®µã§æ¨ªå¹…ãŒwidthã®å¹³è¡Œå››è¾ºå½¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ä½œæˆã›ã‚ˆã€‚
+* ï¼ˆä¸Šæ®µã¨ä¸‹æ®µã¯æ°´å¹³ã§ã€ä¸‹ã‚‹ãŸã³ã«1æ–‡å­—åˆ†ãšã¤å·¦ã«ãšã‚Œã¦ã„ãï¼‰
 */
 
 #include <iostream>
 using namespace std;
 
 /*============================================================
-* ƒƒCƒ“ŠÖ”
-* ˆø”@F‚È‚µ
-* –ß‚è’lF‚È‚µ
+* ãƒ¡ã‚¤ãƒ³é–¢æ•°
+* å¼•æ•°ã€€ï¼šãªã—
+* æˆ»ã‚Šå€¤ï¼šãªã—
 ============================================================*/
 int main() {
 
-	// •Ï”éŒ¾•”
-	int height;		// ‚‚³
-	int width;		// ‰¡•
-	int space;		// ƒXƒy[ƒX‚ÌŒÂ”
-	int i;			// ƒ‹[ƒvƒCƒ“ƒfƒbƒNƒX
-	int j;			// ƒ‹[ƒvƒCƒ“ƒfƒbƒNƒX
-	int k;			// ƒ‹[ƒvƒCƒ“ƒfƒbƒNƒX
+	// å¤‰æ•°å®£è¨€éƒ¨
+	int height;		// é«˜ã•
+	int width;		// æ¨ªå¹…
+	int space;		// ã‚¹ãƒšãƒ¼ã‚¹ã®å€‹æ•°
+	int i;			// ãƒ«ãƒ¼ãƒ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	int j;			// ãƒ«ãƒ¼ãƒ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
+	int k;			// ãƒ«ãƒ¼ãƒ—ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
 
-	// height‚Æwidth‚ð“ü—Í‚·‚é
-	cout << "•½sŽl•ÓŒ`‚Ì‚‚³‚Æ‰¡•‚ð“ü—Í‚µ‚Ä‚­‚¾‚³‚¢\n";
-	cout << "‚‚³F";
+	// heightã¨widthã‚’å…¥åŠ›ã™ã‚‹
+	cout << "å¹³è¡Œå››è¾ºå½¢ã®é«˜ã•ã¨æ¨ªå¹…ã‚’å…¥åŠ›ã—ã¦ãã ã•ã„\n";
+	cout << "é«˜ã•ï¼š";
 	cin >> height;
-	cout << "‰¡•F";
+	cout << "æ¨ªå¹…ï¼š";
 	cin >> width;
 
-	// space‚ð0‚É‚·‚éB
-	space = 0;
+	// spaceã®åˆæœŸå€¤ã®ä»£å…¥
+	space = height - 1;
 
-	// for•¶‚Åi‚ð1‚©‚çheight‚Ü‚Å‘–¸‚·‚é
-	// i‚ÌŠe‰ñ‚ÅAfor•¶‚Åj‚ðƒXƒy[ƒX‚ÌŒÂ”‚¾‚¯‘–¸‚µ‚ÄAƒXƒy[ƒX‚ð•\Ž¦‚·‚éB
-	// ª‚ªI‚í‚Á‚½‚çAspace‚ð1‘‚â‚·
-	// i‚ÌŠe‰ñ‚ÅAfor•¶‚Åk‚ð1‚©‚çwidth‚Ü‚Å‘–¸‚µA*‚ð•\Ž¦‚·‚éB
-	// ‰üs‚·‚é
+	// foræ–‡ã§iã‚’1ã‹ã‚‰heightã¾ã§èµ°æŸ»ã™ã‚‹
+	// iã®å„å›žã§ã€foræ–‡ã§jã‚’ã‚¹ãƒšãƒ¼ã‚¹ã®å€‹æ•°ã ã‘èµ°æŸ»ã—ã¦ã€ã‚¹ãƒšãƒ¼ã‚¹ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+	// â†‘ãŒçµ‚ã‚ã£ãŸã‚‰ã€spaceã‚’1å¢—ã‚„ã™
+	// iã®å„å›žã§ã€foræ–‡ã§kã‚’1ã‹ã‚‰widthã¾ã§èµ°æŸ»ã—ã€*ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
+	// æ”¹è¡Œã™ã‚‹
 	for (i = 1; i <= height; i++) {
 		for (j = 0; j < space; j++) {
 			cout << ' ';
 		}
 
-		space++;
+		space--;
 
 		for (k = 1; k <= width; k++) {
 			cout << '*';
