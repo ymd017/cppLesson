@@ -1,0 +1,3 @@
+chapter3_31_1は User, Computer, Gameの3つのクラスを用いたもの
+chapter3_31_2は User, Computer, Judge, Gameの4つのクラスを用いたもの
+chapter3_31_3は 1をベースにRetryクラスを追加して、繰り返すようにしたもの
