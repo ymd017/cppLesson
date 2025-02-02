@@ -8,22 +8,25 @@
 #include <cstring>
 using namespace std;
 
+// 各メニューのクラス
 class Menu {
 private:
-	int num;
-	int set;
-	int opt;
-	int price;
-	char name[20];
+	int num;			// カテゴリの番号
+	int set;			// セットメニュー可否
+	int opt;			// オプションの有無
+	int price;			// 値段
+	char name[20];			// 商品名
 public:
+	// コンストラクタ
 	Menu(const char nm[] = " ", int n = 0, int s = 0, int o = 0, int p = 0) {
-		strcpy(name, nm);
 		num = n;
 		set = s;
 		opt = o;
 		price = p;
+		strcpy(name, nm);
 	}
 
+	// メンバ変数を返す関数
 	char* getName() {
 		return name;
 	}
@@ -36,16 +39,18 @@ public:
 	}
 };
 
+// メニューのカテゴリ分けをするクラス
 class Category {
 private:
-	int num;
-	int mainCnt;
-	int side1Cnt;
-	int side2Cnt;
-	int optionCnt;
-	Menu menus[10];
+	int num;			// カテゴリの番号
+	int mainCnt;			// メインメニューの要素数
+	int side1Cnt;			// サイドメニュー１の要素数
+	int side2Cnt;			// サイドメニュー２の要素数
+	int optionCnt;			// オプションの要素数
+	Menu menus[10];			// メニューの配列（カテゴリがそれぞれのメニュー配列を持つ）
 
 public:
+	// コンストラクタ
 	Category(int n = 0) {
 		num = n;
 		mainCnt = 0;
@@ -53,11 +58,12 @@ public:
 		side2Cnt = 0;
 		optionCnt = 0;
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) {			// メニュー配列の初期化
 			menus[i] = Menu("", 0, 0, 0, 0);
 		}
 	}
 
+	// menus配列の要素にメニューを代入する関数
 	void addMenu(Menu menu) {
 		switch (menu.getNum()) {
 		case 1:
@@ -79,9 +85,10 @@ public:
 
 	}
 
+	// カテゴリが持つメニューを表示する関数
 	void onDraw(int c = 0) {
 
-		int loop;
+		int loop = 0;
 
 		switch (c) {
 		case 0:
@@ -111,6 +118,8 @@ private:
 	Category categories[4];
 	Menu selectedMenus[10];
 public:
+	// コンストラクタ
+	// メニューをそれぞれのカテゴリの配列要素に代入する
 	TicketMachine() {
 
 		categories[0].addMenu(Menu("牛丼", 1, 1, 1, 380));
@@ -135,20 +144,10 @@ public:
 
 	}
 
-	void setMainMenu(Category category) {
-		categories[0] = category;
-	}
-	void setSide1(Category category) {
-		categories[1] = category;
-	}
-	void setSide2(Category category) {
-		categories[2] = category;
-	}
-	void setOption(Category category) {
-		categories[3] = category;
-	}
+	// 合計金額を算出する関数
 	int getTotal();
 
+	// 各カテゴリのonDraw関数を呼び出して、メニューを表示させる関数
 	void onDraw(int c = 0) {
 		categories[c].onDraw();
 	}
@@ -158,11 +157,13 @@ public:
 int TicketMachine::getTotal() {
 
 	// 変数宣言部
-	int sum = 0;
-	int mainOrderedFlg = 0;
-	int side1OrderedFlg = 0;
-	int side2OrderedFlg = 0;
+	int sum = 0;				// 合計金額
+	int mainOrderedFlg = 0;			// メインメニューが注文された時のフラグ
+	int side1OrderedFlg = 0;		// サイドメニュー１が注文された時のフラグ
+	int side2OrderedFlg = 0;		// サイドメニュー２が注文された時のフラグ
 
+	// セットメニュー割引のフラグ処理
+	// セットメニューになる商品が注文されたときのみなので、ここの処理は間違っている
 	for (int i = 0; i < 10; i++) {
 		sum += selectedMenus[i].getPrice();
 
@@ -181,12 +182,14 @@ int TicketMachine::getTotal() {
 		}
 	}
 
+	// メイン、サイド１、サイド２が全て注文されている場合、50円引きにする
 	if (mainOrderedFlg == 1
 		&& side1OrderedFlg == 1
 		&& side2OrderedFlg == 1) {
 		sum -= 50;
 	}
 
+	// 合計金額を返却する
 	return sum;
 }
 
@@ -208,6 +211,8 @@ int main() {
 	// メインメニューを表示する
 	cout << "メインメニューを選んでください(0~2)\n";
 	machine.onDraw(0);
+
+	// メインメニューを選択する
 
 	/*
 	// 合計金額を算出する
