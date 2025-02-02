@@ -1,7 +1,7 @@
 /*
 * https://qiita.com/rawr/items/51af11d187aa60207ee3
-* ã‹LƒTƒCƒg‚ğ^—‚µ‚ÄAŒ””„‹@‚ÌƒVƒXƒeƒ€‚ğì‚Á‚Ä‚İ‚é
-* ƒNƒ‰ƒX‚Ì•ª‚¯•û‚É‚Â‚¢‚ÄŠw‚Ô
+* ä¸Šè¨˜ã‚µã‚¤ãƒˆã‚’çœŸä¼¼ã—ã¦ã€åˆ¸å£²æ©Ÿã®ã‚·ã‚¹ãƒ†ãƒ ã‚’ä½œã£ã¦ã¿ã‚‹
+* ã‚¯ãƒ©ã‚¹ã®åˆ†ã‘æ–¹ã«ã¤ã„ã¦å­¦ã¶
 */
 
 #include <iostream>
@@ -39,20 +39,25 @@ public:
 class Category {
 private:
 	int num;
+	int mainCnt;
+	int side1Cnt;
+	int side2Cnt;
+	int optionCnt;
 	Menu menus[10];
-	int mainCnt = 0;
-	int side1Cnt = 0;
-	int side2Cnt = 0;
-	int optionCnt = 0;
 
 public:
 	Category(int n = 0) {
 		num = n;
+		mainCnt = 0;
+		side1Cnt = 0;
+		side2Cnt = 0;
+		optionCnt = 0;
 
 		for (int i = 0; i < 10; i++) {
 			menus[i] = Menu("", 0, 0, 0, 0);
 		}
 	}
+
 	void addMenu(Menu menu) {
 		switch (menu.getNum()) {
 		case 1:
@@ -68,7 +73,7 @@ public:
 			menus[optionCnt++] = menu;
 			break;
 		default:
-			cout << "ƒGƒ‰[\n";
+			cout << "ã‚¨ãƒ©ãƒ¼\n";
 			break;
 		}
 
@@ -92,7 +97,7 @@ public:
 			loop = optionCnt;
 			break;
 		default:
-			cout << "ƒGƒ‰[\n";
+			cout << "ã‚¨ãƒ©ãƒ¼\n";
 		}
 
 		for (int i = 0; i < loop; i++) {
@@ -108,25 +113,25 @@ private:
 public:
 	TicketMachine() {
 
-		categories[0].addMenu(Menu("‹˜¥", 1, 1, 1, 380));
-		categories[0].addMenu(Menu("“Ø˜¥", 1, 1, 1, 350));
-		categories[0].addMenu(Menu("ø’èH", 1, 1, 0, 450));
+		categories[0].addMenu(Menu("ç‰›ä¸¼", 1, 1, 1, 380));
+		categories[0].addMenu(Menu("è±šä¸¼", 1, 1, 1, 350));
+		categories[0].addMenu(Menu("é®­å®šé£Ÿ", 1, 1, 0, 450));
 
-		categories[1].addMenu(Menu("–ìØƒTƒ‰ƒ_", 2, 1, 2, 100));
-		categories[1].addMenu(Menu("ƒ|ƒeƒgƒTƒ‰ƒ_", 2, 1, 2, 130));
-		categories[1].addMenu(Menu("’Ğ•¨", 2, 1, 0, 100));
-		categories[1].addMenu(Menu("¶—‘", 2, 0, 0, 60));
-		categories[1].addMenu(Menu("‰·ò—‘", 2, 0, 0, 70));
+		categories[1].addMenu(Menu("é‡èœã‚µãƒ©ãƒ€", 2, 1, 2, 100));
+		categories[1].addMenu(Menu("ãƒãƒ†ãƒˆã‚µãƒ©ãƒ€", 2, 1, 2, 130));
+		categories[1].addMenu(Menu("æ¼¬ç‰©", 2, 1, 0, 100));
+		categories[1].addMenu(Menu("ç”Ÿåµ", 2, 0, 0, 60));
+		categories[1].addMenu(Menu("æ¸©æ³‰åµ", 2, 0, 0, 70));
 
-		categories[2].addMenu(Menu("‚İ‚»`", 3, 1, 0, 60));
-		categories[2].addMenu(Menu("“Ø`", 3, 0, 0, 190));
-		categories[2].addMenu(Menu("ƒX[ƒv", 3, 1, 0, 200));
+		categories[2].addMenu(Menu("ã¿ãæ±", 3, 1, 0, 60));
+		categories[2].addMenu(Menu("è±šæ±", 3, 0, 0, 190));
+		categories[2].addMenu(Menu("ã‚¹ãƒ¼ãƒ—", 3, 1, 0, 200));
 
-		categories[3].addMenu(Menu("•À", 4, 0, 1, 0));
-		categories[3].addMenu(Menu("‘å·‚è", 4, 0, 1, 100));
-		categories[3].addMenu(Menu("“Á·‚è", 4, 0, 1, 200));
-		categories[3].addMenu(Menu("ƒSƒ}ƒhƒŒƒbƒVƒ“ƒO", 4, 0, 2, 0));
-		categories[3].addMenu(Menu("˜a•—ƒhƒŒƒbƒVƒ“ƒO", 4, 0, 2, 0));
+		categories[3].addMenu(Menu("ä¸¦", 4, 0, 1, 0));
+		categories[3].addMenu(Menu("å¤§ç››ã‚Š", 4, 0, 1, 100));
+		categories[3].addMenu(Menu("ç‰¹ç››ã‚Š", 4, 0, 1, 200));
+		categories[3].addMenu(Menu("ã‚´ãƒãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°", 4, 0, 2, 0));
+		categories[3].addMenu(Menu("å’Œé¢¨ãƒ‰ãƒ¬ãƒƒã‚·ãƒ³ã‚°", 4, 0, 2, 0));
 
 	}
 
@@ -152,7 +157,7 @@ public:
 
 int TicketMachine::getTotal() {
 
-	// •Ï”éŒ¾•”
+	// å¤‰æ•°å®£è¨€éƒ¨
 	int sum = 0;
 	int mainOrderedFlg = 0;
 	int side1OrderedFlg = 0;
@@ -171,6 +176,8 @@ int TicketMachine::getTotal() {
 		case 2:
 			side2OrderedFlg = 1;
 			break;
+		default:
+			cout << "ã‚¨ãƒ©ãƒ¼\n";
 		}
 	}
 
@@ -184,32 +191,27 @@ int TicketMachine::getTotal() {
 }
 
 
-
-
-
-
-
 /*============================================================
-* ƒƒCƒ“ŠÖ”
-* ˆø”@F‚È‚µ
-* –ß‚è’lF‚È‚µ
+* ãƒ¡ã‚¤ãƒ³é–¢æ•°
+* å¼•æ•°ã€€ï¼šãªã—
+* æˆ»ã‚Šå€¤ï¼šãªã—
 ============================================================*/
 int main() {
 
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	int totalPrice;
 	TicketMachine machine;
 
-	// ‚¢‚ç‚Á‚µ‚á‚¢‚Ü‚¹‚Ì•\¦
-	cout << "‚¢‚ç‚Á‚µ‚á‚¢‚Ü‚¹\n\n";
+	// ã„ã‚‰ã£ã—ã‚ƒã„ã¾ã›ã®è¡¨ç¤º
+	cout << "ã„ã‚‰ã£ã—ã‚ƒã„ã¾ã›\n\n";
 
-	// ƒƒCƒ“ƒƒjƒ…[‚ğ•\¦‚·‚é
-	cout << "ƒƒCƒ“ƒƒjƒ…[‚ğ‘I‚ñ‚Å‚­‚¾‚³‚¢(0~2)\n";
+	// ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’è¡¨ç¤ºã™ã‚‹
+	cout << "ãƒ¡ã‚¤ãƒ³ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚’é¸ã‚“ã§ãã ã•ã„(0~2)\n";
 	machine.onDraw(0);
 
 	/*
-	// ‡Œv‹àŠz‚ğZo‚·‚é
+	// åˆè¨ˆé‡‘é¡ã‚’ç®—å‡ºã™ã‚‹
 	totalPrice = machine.getTotal();
-	cout << "‡Œv‹àŠz: " << totalPrice << "\n";
+	cout << "åˆè¨ˆé‡‘é¡: " << totalPrice << "\n";
 	*/
 }
