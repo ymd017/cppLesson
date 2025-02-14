@@ -73,7 +73,7 @@ int main() {
 
 		// 無操作時間の表示
 		//cout << "ただいまの無操作時間： " << (idleTime / 1000 / 60) << "分\n";
-		cout << "ただいまの無操作時間： " << (idleTime / 1000 ) << "秒\n";
+		cout << "ただいまの無操作時間： " << (idleTime / 1000 / 60) << "分\n";
 
 		// 1分前ならスリープ前通知を出す
 		if (idleTime > warningTime && warningShown == false) {
