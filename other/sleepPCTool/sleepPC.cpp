@@ -1,5 +1,5 @@
 /*
-* 1���ԃL�[�{�[�h�ƃ}�E�X�̗��������삳��Ȃ�������A�X���[�v��Ԃɂ���
+* 1時間キーボードとマウスの両方が操作されなかったら、スリープ状態にする
 */
 
 #include <iostream>
@@ -11,87 +11,87 @@
 #pragma comment(lib, "powrprof.lib")
 using namespace std;
 
-// ���삳��Ă��Ȃ����Ԃ�Ԃ��֐�
+// 操作されていない時間を返す関数
 DWORD getIdleTime() {
-	// �ϐ��錾��
-	DWORD idleTime;		// ���߂鑀�삳��ĂȂ�����
+	// 変数宣言部
+	DWORD idleTime;		// 求める操作されてない時間
 
-	// �Ō�̓��͂̎����f�[�^(dwTime�����o)�����\���̂̐���
+	// 最後の入力の時刻データ(dwTimeメンバ)を持つ構造体の生成
 	LASTINPUTINFO lii;
 
-	// �\���̃����o�ɒl��ݒ肷��
-	lii.cbSize = sizeof(LASTINPUTINFO);		// �o�[�W��������p
+	// 構造体メンバに値を設定する
+	lii.cbSize = sizeof(LASTINPUTINFO);		// バージョン判定用
 
-	GetLastInputInfo(&lii);					// �e�B�b�N�J�E���g�iPC�N������̌o�ߎ��ԁj�A1�b��1000
+	GetLastInputInfo(&lii);					// ティックカウント（PC起動からの経過時間）、1秒は1000
 
-	// ���삳��ĂȂ����Ԃ����߂�
+	// 操作されてない時間を求める
 	idleTime = static_cast<DWORD>(GetTickCount64()) - lii.dwTime;
 
-	// ���삳��ĂȂ����Ԃ�Ԃ�
+	// 操作されてない時間を返す
 	return idleTime;
 }
 
-// PC���X���[�v��Ԃɂ��������L���ɂ���֐�
+// PCをスリープ状態にする特権を有効にする関数
 void enableSleepPrivilege() {
-	// �g�[�N���n���h���̍쐬
+	// トークンハンドルの作成
 	HANDLE hToken;
 
 	TOKEN_PRIVILEGES tp;
 
-	// OpenProcessToken�֐��ŁA���݂̃v���Z�X�i���s���̂��̃v���O�����j��n���A�����̃A�N�Z�X�g�[�N�������炤�B
+	// OpenProcessToken関数で、現在のプロセス（実行時のこのプログラム）を渡し、特権のアクセストークンをもらう。
 	OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken);
 	tp.PrivilegeCount = 1;
 	tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
 
-	// AdjustTokenPrivileges�֐��ŁA���݂̃v���Z�X�̃A�N�Z�X�g�[�N����L���ɂ���
+	// AdjustTokenPrivileges関数で、現在のプロセスのアクセストークンを有効にする
 	AdjustTokenPrivileges(&hToken, false, &tp, 0, NULL, NULL);
 
-	// �g�[�N�������
+	// トークンを閉じる
 	CloseHandle(hToken);
 }
 
-// �X���[�v�O�ʒm������֐�
+// スリープ前通知をする関数
 void warning() {
-	MessageBox(NULL, TEXT("���������X���[�v��ԂɂȂ�܂�"), TEXT("�ʒm"), MB_OK);
+	MessageBox(NULL, TEXT("もうすぐスリープ状態になります"), TEXT("通知"), MB_OK);
 }
 
 int main() {
 
-	// �ϐ��錾��
-	DWORD idleThreshold = 3600000;	// �X���[�v�̂������l�ƂȂ鎞�Ԃ̐ݒ�i�~���b�j�@1����
-	DWORD idleTime;								// �L�[�{�[�h�ƃ}�E�X�����삳��ĂȂ�����
-	DWORD warningTime = idleThreshold - 60000;					// 1��
+	// 変数宣言部
+	DWORD idleThreshold = 3600000;	// スリープのしきい値となる時間の設定（ミリ秒）　1時間
+	DWORD idleTime;								// キーボードとマウスが操作されてない時間
+	DWORD warningTime = idleThreshold - 60000;					// 1分
 	bool warningShown = false;
 
-	// ���m
-	cout << "1���Ԉȏ�L�[�{�[�h�ƃ}�E�X�����삳��Ȃ���΁A�X���[�v���܂��B\n";
+	// 告知
+	cout << "1時間以上キーボードとマウスが操作されなければ、スリープします。\n";
 
 	while (true) {
 
-		// �L�[�{�[�h���ƃ}�E�X���̖����쎞�Ԃ��擾
+		// キーボードがとマウスがの無操作時間を取得
 		idleTime = getIdleTime();
 
-		// �����쎞�Ԃ̕\��
-		//cout << "�������܂̖����쎞�ԁF " << (idleTime / 1000 / 60) << "��\n";
-		cout << "�������܂̖����쎞�ԁF " << (idleTime / 1000 ) << "�b\n";
+		// 無操作時間の表示
+		//cout << "ただいまの無操作時間： " << (idleTime / 1000 / 60) << "分\n";
+		cout << "ただいまの無操作時間： " << (idleTime / 1000 ) << "秒\n";
 
-		// 1���O�Ȃ�X���[�v�O�ʒm���o��
+		// 1分前ならスリープ前通知を出す
 		if (idleTime > warningTime && warningShown == false) {
 			thread warningMsg(warning);
 			warningMsg.detach();
 			warningShown = true;
 		}
 
-		// ���삳��ĂȂ����Ԃ��������l�̎��Ԉȏ�ɂȂ�΁A PC���X���[�v��Ԃɂ���
+		// 操作されてない時間がしきい値の時間以上にならば、 PCをスリープ状態にする
 		if (idleTime > idleThreshold) {
 			enableSleepPrivilege();
 
-			cout << "1���Ԗ����삾�������߁A�X���[�v���܂��B\n";
+			cout << "1時間無操作だったため、スリープします。\n";
 			SetSuspendState(false, false, false);
 			break;
 		}
 
-		// 1�����ƂɌJ��Ԃ�
-		Sleep(5000);
+		// 1分ごとに繰り返す
+		Sleep(60000);
 	}
 }
