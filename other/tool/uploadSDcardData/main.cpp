@@ -254,12 +254,12 @@ int main() {
 		createFolders(dateFolderPath);
 
 		cout << "SDカード内のデータのアップロードが終了しました。\n";
-		cin.get();
 	}
 	catch (const exception& err) {
 		cout << "[ERROR] " << err.what() << "\n";
-		cin.get();
 	}
+
+	system("pause");
 
 	return 0;
 #endif
