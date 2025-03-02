@@ -7,7 +7,7 @@
 #include <string>
 #include <exception>
 #include <cctype>
-// #define TEST_MODE;
+// #define TEST_MODE
 using namespace std;
 
 /*=============================================================================
@@ -19,7 +19,7 @@ size_t inputFormat(string& formatStr) {
 
 	cout << "フォーマットを入力してください。\n";
 	cout << "※ 連番を入れたい箇所に $ を入れてください。\n";
-	cout << "※ 例：exsempleStage_floor$_Alb.png → exsempleStage_floor1_Alb.png\n\n";
+	cout << "※ 例：exampleStage_floor$_Alb.png → exsempleStage_floor1_Alb.png\n\n";
 	cin >> formatStr;
 	cout << "\n";
 
@@ -36,10 +36,10 @@ size_t inputFormat(string& formatStr) {
 
 /*=============================================================================
 * 引数の文字列が数字かどうか調べて、問題なければ数字を返却する関数。
-* 引数　：const string str		// 数字かどうか調べる文字列
+* 引数　：const string& str		// 数字かどうか調べる文字列
 * 戻り値：size_t startNum		// 連番の始まりの数字
 =============================================================================*/
-size_t checkInput(const string str) {
+size_t checkInput(const string& str) {
 
 	// 変数宣言部
 	size_t number;
@@ -118,15 +118,17 @@ size_t inputFinNum(size_t startNum) {
 
 
 /*=============================================================================
-* 連番の終わりの数字を入力させる
-* 引数　：size_t startNum		// 連番の始まりの数字
-* 引数　：size_t finNum			// 連番の終わりの数字
+* $の位置に数字を入れて、出力する
+* 引数　：size_t startNum					// 連番の始まりの数字
+* 引数　：size_t finNum						// 連番の終わりの数字
+* 引数　：size_t idx						// $のある位置のインデックス
+* 引数　：const string& formatStr			// フォーマットの文字列
 * 戻り値：なし
 =============================================================================*/
-void outputSerealNum(size_t startNum, size_t finNum, size_t idx, const string& formatStr) {
+void outputSerialNum(size_t startNum, size_t finNum, size_t idx, const string& formatStr) {
 
 	cout << "\n----------------------------------------------\n";
-	
+
 	// forでカウントしながら、$の文字をカウントに書き換える
 	for (size_t i = startNum; i <= finNum; ++i) {
 		cout << formatStr.substr(0, idx) << i << formatStr.substr(idx + 1) << "\n";
@@ -135,7 +137,7 @@ void outputSerealNum(size_t startNum, size_t finNum, size_t idx, const string& f
 
 
 /*=============================================================================
-* $の位置に数字を入れて、出力する
+* メイン関数
 * 引数　：なし
 * 戻り値：なし
 =============================================================================*/
@@ -163,14 +165,13 @@ int main() {
 		finNum = inputFinNum(startNum);
 
 		// $の位置に数字を入れて、出力する
-		outputSerealNum(startNum, finNum, idx, formatStr);
-		cin.get();
+		outputSerialNum(startNum, finNum, idx, formatStr);
 	}
-	
+
 	catch (const exception& err) {
 		cout << "[ERROR] : " << err.what() << "\n";
-		cin.get();
 	}
+	system("pause");
 
 #endif
 }
