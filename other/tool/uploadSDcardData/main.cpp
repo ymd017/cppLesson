@@ -253,9 +253,12 @@ int main() {
 		// 日付フォルダの中に、rc, tiff, modelフォルダを作成する
 		createFolders(dateFolderPath);
 
+		cout << "SDカード内のデータのアップロードが終了しました。\n";
+		cin.get();
 	}
 	catch (const exception& err) {
 		cout << "[ERROR] " << err.what() << "\n";
+		cin.get();
 	}
 
 	return 0;
