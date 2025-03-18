@@ -12,15 +12,26 @@ int main(){
 
     if (h < 0){
         std::cout << "GPIOチップが開けませんでした\n";
+        return 1;
     }
 
     // LEDを出力に設定
-    // センサーを入力に設定
     int gpioFd_led = lgGpioClaimOutput(h, 0, gpioLed, 0);
+
+    if (gpioFd_led < 0){
+        std::cout << "LEDのGPIOピンの使用権を得られませんでした/n";
+        lgGpiochipClose(h);         // GPIOチップを閉じる
+        return 1;
+    }
+
+    // センサーを入力に設定
     int gpioFd_sensor = lgGpioClaimInput(h, 0, gpioSensor);
 
-    if (gpioFd_led < 0 || gpioFd_sensor < 0){
-        std::cout << "GPIOピンの使用権を得られませんでした/n";
+    if (gpioFd_sensor < 0){
+        std::cout << "センサーのGPIOピンの使用権を得られませんでした/n";
+        close(gpioFd_led);            // Gpioピンの権利を解放
+        lgGpiochipClose(h);         // GPIOチップを閉じる
+        return 1;
     }
 
     // sensorの出力がHighならLEDを2秒間光らせる
@@ -46,4 +57,8 @@ int main(){
     // GPIOチップを閉じる
     lgGpiochipClose(h);
 
+    return 0;
 }
+
+
+
